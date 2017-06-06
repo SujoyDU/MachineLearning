@@ -66,9 +66,10 @@ mean_y = np.mean(all_samples[1,:])
 mean_z = np.mean(all_samples[2,:])
 
 mean_vector = np.array([[mean_x],[mean_y],[mean_z]])
+# print all_samples
 # print mean_vector
 
-scatter_mat = np.zeros((3,3))
+# scatter_mat = np.zeros((3,3))
 # print scatter_mat
 # print all_samples[:,0].reshape(3,1)
 # x1= all_samples[:,0].reshape(3,1)-mean_vector
@@ -81,34 +82,34 @@ scatter_mat = np.zeros((3,3))
 # print x1
 # print x2
 # print x1.dot(x2)0
-for i in range(all_samples.shape[1]):
-    scatter_mat += (all_samples[:,i].reshape(3,1)-mean_vector).dot((all_samples[:,i].reshape(3,1)-mean_vector).T)
+# for i in range(all_samples.shape[1]):
+#     scatter_mat += (all_samples[:,i].reshape(3,1)-mean_vector).dot((all_samples[:,i].reshape(3,1)-mean_vector).T)
 # print scatter_mat
 
 cov_mat = np.cov([all_samples[0,:],all_samples[1,:], all_samples[2,:]])
 # print cov_mat
 
 # eigenvectors and eigenvalues for the from the scatter matrix
-eig_val_sc, eig_vec_sc = np.linalg.eig(scatter_mat)
+# eig_val_sc, eig_vec_sc = np.linalg.eig(scatter_mat)
 
 # eigenvectors and eigenvalues for the from the covariance matrix
 eig_val_cov, eig_vec_cov = np.linalg.eig(cov_mat)
 
-print eig_val_cov
-print eig_val_sc
+# print eig_val_cov
+# print eig_val_sc
 
-print eig_vec_cov
-print eig_vec_sc
+# print eig_vec_cov
+# print eig_vec_sc
 
-for i in range(len(eig_val_sc)):
-    eigvec_sc = eig_vec_sc[:,i].reshape(1,3).T
-    eigvec_cov = eig_vec_cov[:,i].reshape(1,3).T
-    assert eigvec_sc.all() == eigvec_cov.all(), 'Eigenvectors are not identical'
-
-    # print('Eigenvector {}: \n{}'.format(i+1, eigvec_sc))
-    # print('Eigenvalue {} from scatter matrix: {}'.format(i+1, eig_val_sc[i]))
-    # print('Eigenvalue {} from covariance matrix: {}'.format(i+1, eig_val_cov[i]))
-    # print('Scaling factor: ', eig_val_sc[i]/eig_val_cov[i])
-    # print(40 * '-')
-
-print i in range (len(eig_val_sc))
+# for i in range(len(eig_val_sc)):
+#     eigvec_sc = eig_vec_sc[:,i].reshape(1,3).T
+#     eigvec_cov = eig_vec_cov[:,i].reshape(1,3).T
+#     assert eigvec_sc.all() == eigvec_cov.all(), 'Eigenvectors are not identical'
+#
+#     # print('Eigenvector {}: \n{}'.format(i+1, eigvec_sc))
+#     # print('Eigenvalue {} from scatter matrix: {}'.format(i+1, eig_val_sc[i]))
+#     # print('Eigenvalue {} from covariance matrix: {}'.format(i+1, eig_val_cov[i]))
+#     # print('Scaling factor: ', eig_val_sc[i]/eig_val_cov[i])
+#     # print(40 * '-')
+#
+# print i in range (len(eig_val_sc))
