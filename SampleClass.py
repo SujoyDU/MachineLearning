@@ -38,18 +38,17 @@ def multivariateGaussianDistribution():
     coVariance_b = np.array([[1,0,0],[0,1,0],[0,0,1]])
     multivariateNormalDist_b = np.random.multivariate_normal(mean_b,coVariance_b,20).T
 
-    # drawMultivariateGaussianDistribution(multivariateNormalDist_a, multivariateNormalDist_b)
+    drawMultivariateGaussianDistribution(multivariateNormalDist_a, multivariateNormalDist_b)
     return multivariateNormalDist_a,multivariateNormalDist_b
 
 
 def drawMultivariateGaussianDistribution(sampleClass_a,sampleClass_b):
     # sampleClass_a,sampleClass_b = multivariateGaussianDistribution()
-    fig = plt.figure(figsize=(10,10))
+    fig = plt.figure(0,figsize=(10,10))
     ax = fig.add_subplot(111, projection='3d')
     plt.rcParams['legend.fontsize'] =10
     ax.plot(sampleClass_a[0,:],sampleClass_a[1,:],sampleClass_a[2,:],'o',markersize =8, color ='blue', alpha =0.5, label='sampleClass_a')
     ax.plot(sampleClass_b[0, :], sampleClass_b[1, :], sampleClass_b[2, :], '*', markersize=8, color='red', alpha=0.5,label='sampleClass_b')
-
     plt.show()
 
 
@@ -69,6 +68,7 @@ def eigenVecVal():
 
     eigen_val, eigen_vec = np.linalg.eig(cov_mat)
 
+    drawEigen(sampleClass,cov_mat,eigen_val,eigen_vec)
     return sampleClass,cov_mat,eigen_val,eigen_vec
 
 # print eigenVecVal()
@@ -89,11 +89,11 @@ class Arrow3D(FancyArrowPatch):
         FancyArrowPatch.draw(self, renderer)
 
 
-def drawEigen():
+def drawEigen(all_samples,cov_mat,eigen_val,eigen_vec):
     fig = plt.figure(figsize=(7,7))
     ax = fig.add_subplot(111, projection='3d')
 
-    all_samples, cov_mat, eigen_val, eigen_vec = eigenVecVal()
+    # all_samples, cov_mat, eigen_val, eigen_vec = eigenVecVal()
     mean_x = np.mean(all_samples[0,:])
     mean_y = np.mean(all_samples[1,:])
     mean_z = np.mean(all_samples[2,:])
@@ -128,7 +128,7 @@ def sortEigen():
 
     # Visually confirm that the list is correctly sorted by decreasing eigenvalues
     for i in eig_pairs:
-        print(i[0])
+        print(i)
 
     matrix_w = np.hstack((eig_pairs[0][1].reshape(3, 1), eig_pairs[1][1].reshape(3, 1)))
     print('Matrix W:\n', matrix_w)
@@ -146,8 +146,9 @@ def newSubspace():
     transformed = matrix_w.T.dot(all_samples)
     assert transformed.shape == (2,40), "The matrix is not 2x40 dimensional."
 
+    plt.figure(1)
     plt.plot(transformed[0, 0:20], transformed[1, 0:20], 'o', markersize=7, color='blue', alpha=0.5, label='class1')
-    plt.plot(transformed[0, 20:40], transformed[1, 20:40], '^', markersize=7, color='red', alpha=0.5, label='class2')
+    plt.plot(transformed[0, 20:40], transformed[1, 20:40], '*', markersize=7, color='red', alpha=0.5, label='class2')
     plt.xlim([-4, 4])
     plt.ylim([-4, 4])
     plt.xlabel('x_values')
