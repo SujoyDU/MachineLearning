@@ -49,7 +49,7 @@ def drawMultivariateGaussianDistribution(sampleClass_a,sampleClass_b):
     plt.rcParams['legend.fontsize'] =10
     ax.plot(sampleClass_a[0,:],sampleClass_a[1,:],sampleClass_a[2,:],'o',markersize =8, color ='blue', alpha =0.5, label='sampleClass_a')
     ax.plot(sampleClass_b[0, :], sampleClass_b[1, :], sampleClass_b[2, :], '*', markersize=8, color='red', alpha=0.5,label='sampleClass_b')
-    plt.show()
+    # plt.show()
 
 
 
@@ -98,7 +98,7 @@ def drawEigen(all_samples,cov_mat,eigen_val,eigen_vec):
     mean_y = np.mean(all_samples[1,:])
     mean_z = np.mean(all_samples[2,:])
 
-
+    plt.figure(1)
     ax.plot(all_samples[0,:], all_samples[1,:], all_samples[2,:], 'o', markersize=8, color='green', alpha=0.2)
     ax.plot([mean_x], [mean_y], [mean_z], 'o', markersize=10, color='red', alpha=0.5)
     for v in eigen_vec.T:
@@ -110,7 +110,7 @@ def drawEigen(all_samples,cov_mat,eigen_val,eigen_vec):
 
     plt.title('Eigenvectors')
 
-    plt.show()
+    # plt.show()
 
 # drawEigen()
 #############################################################
@@ -146,7 +146,7 @@ def newSubspace():
     transformed = matrix_w.T.dot(all_samples)
     assert transformed.shape == (2,40), "The matrix is not 2x40 dimensional."
 
-    plt.figure(1)
+    plt.figure(2)
     plt.plot(transformed[0, 0:20], transformed[1, 0:20], 'o', markersize=7, color='blue', alpha=0.5, label='class1')
     plt.plot(transformed[0, 20:40], transformed[1, 20:40], '*', markersize=7, color='red', alpha=0.5, label='class2')
     plt.xlim([-4, 4])
